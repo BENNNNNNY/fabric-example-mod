@@ -24,7 +24,7 @@ public abstract class TreeFeatureMixin {
         @Unique
         private BlockPos modid$basePos;
 
-        @ModifyVariable(method = "generate", at = @At(value = "STORE"), ordinal = 0)
+        @ModifyVariable(method = "place", at = @At(value = "STORE"), ordinal = 0)
         private BlockPos modid$raiseOrigin(BlockPos origin, FeatureContext<TreeFeatureConfig> context) {
                 StructureWorldAccess world = context.getWorld();
                 if (ExampleMod.craftingTableTreesEnabled(world)) {
@@ -37,7 +37,7 @@ public abstract class TreeFeatureMixin {
                 return origin;
         }
 
-        @Inject(method = "generate", at = @At("RETURN"))
+        @Inject(method = "place", at = @At("RETURN"))
         private void modid$placeCraftingTable(FeatureContext<TreeFeatureConfig> context,
                         CallbackInfoReturnable<Boolean> cir) {
                 if (!this.modid$shouldElevate || !cir.getReturnValue()) {
