@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "modid",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+        "name": "Crafting Table Trees",
+        "description": "Adds a per-world toggle that raises trees by one block and replaces their base with a crafting table.",
 	"authors": [
 		"Me!"
 	],
@@ -35,7 +35,5 @@
 		"java": ">=21",
 		"fabric-api": "*"
 	},
-	"suggests": {
-		"another-mod": "*"
-	}
+        "suggests": {}
 }
