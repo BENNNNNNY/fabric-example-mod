@@ -19,11 +19,15 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
+        splitEnvironmentSourceSets()
 
-	mods {
-		"modid" {
-			sourceSet sourceSets.main
+        mixin {
+                defaultRefmapName = "modid.refmap.json"
+        }
+
+        mods {
+                "modid" {
+                        sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
 	}
