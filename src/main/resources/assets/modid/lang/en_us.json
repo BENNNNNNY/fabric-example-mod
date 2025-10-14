@@ -1,0 +1,5 @@
+{
+        "option.modid.crafting_table_trees": "Crafting Table Trees",
+        "screen.modid.crafting_table_trees": "Tree Generation Settings",
+        "text.modid.crafting_table_trees.description": "Replace the base of every tree with a crafting table and raise it by one block."
+}

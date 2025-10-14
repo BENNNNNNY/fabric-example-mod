@@ -1,24 +1,42 @@
 package com.example;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.GameRules;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.WorldAccess;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ExampleMod implements ModInitializer {
-	public static final String MOD_ID = "modid";
+        public static final String MOD_ID = "modid";
+        public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+        public static final GameRules.Key<GameRules.BooleanRule> CRAFTING_TABLE_TREE_RULE =
+                        GameRuleRegistry.register("craftingTableTrees",
+                                        GameRules.Category.UPDATES, GameRules.BooleanRule.create(false));
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+        @Override
+        public void onInitialize() {
+                LOGGER.info("Crafting table tree generation initialized");
+        }
 
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+        public static boolean craftingTableTreesEnabled(WorldAccess world) {
+                if (world instanceof ServerWorld serverWorld) {
+                        return serverWorld.getGameRules().getBoolean(CRAFTING_TABLE_TREE_RULE);
+                }
+                if (world.getServer() != null) {
+                        return world.getServer().getGameRules().getBoolean(CRAFTING_TABLE_TREE_RULE);
+                }
+                return false;
+        }
 
-		LOGGER.info("Hello Fabric world!");
-	}
+        public static boolean craftingTableTreesEnabled(StructureWorldAccess world) {
+                return craftingTableTreesEnabled((WorldAccess) world);
+        }
+
+        public static boolean craftingTableTreesEnabled(ServerWorld world) {
+                return world.getGameRules().getBoolean(CRAFTING_TABLE_TREE_RULE);
+        }
 }
